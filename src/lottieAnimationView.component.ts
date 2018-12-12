@@ -12,7 +12,7 @@ const lottie: any = require('lottie-web/build/player/lottie.js');
 })
 
 export class LottieAnimationViewComponent implements OnInit {
-    
+
     constructor(@Inject(PLATFORM_ID) private platformId: string) {}
 
     @Input() options: any;
@@ -28,9 +28,9 @@ export class LottieAnimationViewComponent implements OnInit {
     private _options: any;
 
     ngOnInit() {
-        
+
         if(isPlatformServer(this.platformId)){return;}
-        
+
         this._options = {
             container: this.lavContainer.nativeElement,
             renderer: this.options.renderer || 'svg',
@@ -44,6 +44,8 @@ export class LottieAnimationViewComponent implements OnInit {
 
         this.viewWidth = this.width + 'px' || '100%';
         this.viewHeight = this.height + 'px' || '100%';
+
+        lottie.setLocationHref(document.location.href);
 
         let anim: any = lottie.loadAnimation(this._options);
         this.animCreated.emit(anim);
